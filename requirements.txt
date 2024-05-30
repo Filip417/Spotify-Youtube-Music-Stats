@@ -1,3 +1,4 @@
+python==3.12.3
 Django==5.0.6
 Pillow==10.3.0
 Requests==2.32.3
@@ -6,3 +7,4 @@ python-decouple==3.8
 gunicorn==22.0.0
 whitenoise==6.0.0
 django-compressor==3.0
+dj-database-url==2.2.0

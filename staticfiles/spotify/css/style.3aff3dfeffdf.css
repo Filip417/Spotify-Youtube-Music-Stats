@@ -1,0 +1,593 @@
+html, body, * {
+    -webkit-app-region: drag;
+    box-sizing: border-box;   
+}
+
+.container {
+    height: 100vh;
+}
+
+body {
+    font-family: "CircularStd", "Gotham SSm A", "Gotham SSm B", "Helvatica Neue";
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(24, 24, 24);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100%;
+    max-height: 100vh;
+    height: 100vh;
+    box-sizing: border-box;
+    margin: 0px;
+    overflow-x: hidden;
+}
+
+.bodywrapper {
+    padding-left: 100px;
+}
+
+.bodycontent{
+    display: block;
+    unicode-bidi: isolate;
+    width: 100%;
+    margin: 0px auto;
+    max-width: 1400px;
+    min-height: 100vh;
+    padding: 80px;
+}
+
+.left {
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 10px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100px;
+    background-color: rgb(4, 3, 6);
+    text-align: center;
+    z-index: 99;
+}
+
+.left > * {
+    width: 100%;
+}
+
+
+.navlogo {
+    color: rgb(29, 185, 84);
+    margin-top: 30px;
+    width: 70px;
+    height: 70px;
+    transition: all 0.25s cubic-bezier(0.3, 0, 0.4, 1) 0s;
+}
+
+.navlogo svg {
+    width: 50px;
+}
+
+.logo_index {
+    margin-top: 20px;
+    transition: all 0.25s cubic-bezier(0.3, 0, 0.4, 1) 0s;
+}
+
+.logo_index svg{
+    width: 30px;
+}
+
+.navgithub {
+    color: rgb(155, 155, 155);
+    width: 45px;
+    height: 45px;
+    margin-bottom: 30px;
+}
+
+.navgithub svg{
+    width: 40px;
+}
+
+.navgithub:hover{
+    color: rgb(62, 148, 228);
+}
+
+svg {
+    fill: currentcolor;
+    vertical-align: middle;
+}
+svg:not(:root) {
+    overflow: hidden;
+}
+
+.navmenu {
+    display: flex;
+    flex-direction: column;
+}
+
+.navmenuitem {
+    color: rgb(155, 155, 155);
+    font-size: 11px;
+}
+
+.navmenuitem a.active, .navmenuitem a:hover{
+    color: rgb(255, 255, 255);
+    background-color: rgb(24, 24, 24);
+    border-left: 5px solid rgb(30, 215, 96);
+}
+
+.navmenuitem a {
+    display: block;
+    padding: 15px 0px;
+    border-left: 5px solid transparent;
+    width: 100%;
+    height: 100%;
+}
+
+div {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+.navmenuitem svg {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 7px;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.25s cubic-bezier(0.3, 0, 0.4, 1) 0s;
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    unicode-bidi: isolate;
+}
+
+li {
+    display: list-item;
+    unicode-bidi: isolate;
+}
+
+
+.button_spotify {
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 50px;
+    padding: 11px 24px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.3, 0, 0.4, 1) 0s;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.button_spotify:hover {
+    background-color: rgb(255, 255, 255);
+    color: rgb(24, 24, 24);
+}
+
+img {
+    max-width: 100%;
+    aspect-ratio: 1/1;
+    vertical-align: middle;
+}
+
+.rounded-circle {
+    border-radius: 100%;
+}
+
+.username {
+    font-size: 50px;
+    font-weight: 700;
+    margin: 20px 0px 0px;
+}
+
+.username:hover {
+    color: rgb(29, 185, 84);
+}
+
+h1, h2, h3 {
+    font-weight: 900;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.025em;
+    margin: 0px 0px 10px;
+    font-weight: 700;
+}
+
+h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+.userheader {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.userstats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.userstat {
+    text-align: center;
+}
+
+.usernum {
+    color: rgb(29, 185, 84);
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.userlabel {
+    color: rgb(155, 155, 155);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+}
+
+p {
+    margin: 0px 0px 10px;
+}
+
+.userpreview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    width: 100%;
+    margin-top: 50px;
+}
+
+.usertracklistheading {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.usertracklistheading h3 {
+    display: inline-block;
+    margin: 0px
+}
+
+.userartist {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.userartwork {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    min-width: 64px;
+    margin-right: 20px;
+    margin-left:24px;
+}
+
+.userartwork img {
+    display: block;
+    transition: opacity 0.3s ease;
+  }
+
+
+.userartistname{
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+}
+
+.userartistname:hover{
+    text-decoration: underline;
+
+}
+
+.userartwork:hover img {
+    opacity: 0.5;
+}
+
+.TrackItem__TrackArtwork:hover img {
+    opacity: 0.5;
+}
+
+.TrackItem__TrackArtwork_withindex img {
+    transition: opacity 0.3s ease;
+}
+
+.TrackItem__TrackArtwork_withindex:hover img {
+    opacity: 0.5;
+}
+
+.TrackItem__TrackArtwork img {
+    transition: opacity 0.3s ease;
+}
+
+.TrackItem__TrackContainer {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.TrackItem__TrackArtwork_withindex {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    width: 100px;
+    min-width: 100px;
+    margin-right: 20px;
+    align-items: center;
+}
+
+.TrackItem__TrackArtwork {
+    display: inline-block;
+    position: relative;
+    width: 70px;
+    min-width: 70px;
+    margin-right: 20px;
+}
+
+.index_counter {
+    color: rgb(201, 201, 201);
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.TrackItem__TrackMeta {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    gap: 10px;
+}
+
+.TrackItem__TrackLeft {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 1px;
+}
+
+
+.TrackItem__TrackName {
+    margin-bottom: 5px;
+    border-bottom: 1px solid transparent;
+}
+
+.TrackItem__TrackAlbum {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 1px;
+    color: rgb(155, 155, 155);
+    font-size: 14px;
+    margin-top: 3px;
+}
+
+
+.TrackItem__TrackDuration{
+    color: rgb(155, 155, 155);
+    font-size: 14px;
+}
+
+.Top_Header {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.Top_Ranges{
+    display: flex;
+    margin-right: -11px;
+}
+
+button {
+    display: inline-block;
+    color: rgb(179, 179, 179);
+    font-family: "Circular Std", system, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 50px;
+    border: 0px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.3, 0, 0.4, 1) 0s;
+}
+
+.filter {
+    background-color: transparent;
+    color: rgb(155, 155, 155);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px;
+}
+
+.filter.active {
+    color: rgb(255, 255, 255);
+    text-decoration: underline;
+}
+
+.filter:hover {
+    color: rgb(255, 255, 255);
+}
+
+.Top_Header h2 {
+    margin: 0px;
+}
+
+.playlist_desc {
+    color: rgb(155, 155, 155);
+}
+
+.centered_div {
+    text-align: center;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.TrackItem_Index{
+    width: 26px;
+}
+
+
+.direct_link:hover{
+    text-decoration: underline;
+}
+
+.save_btn{
+    background-color: rgb(29, 185, 84);
+    color: rgb(24,24,24);
+    border: 2px solid rgb(24,24,24);
+}
+
+.save_btn:hover{
+    background-color: rgb(29, 185, 84);
+    border: 2px solid rgb(29, 185, 84);
+    color: rgb(24,24,24);
+}
+
+.yt_btn {
+    background-color: rgb(0,0,0);
+    color: rgb(241, 241, 241);
+    border: 2px solid rgb(24,24,24);
+}
+
+.yt_btn:hover {
+    background-color: rgb(0,0,0);
+    border: 2px solid rgb(0,0,0);
+    color: rgb(241, 241, 241);
+}
+
+.logout-link{
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.logout-link > a:hover{
+    color: rgb(29, 185, 84);
+}
+
+@media (max-width: 75em) {
+    .bodycontent{
+        padding: 60px 50px;
+    }
+}
+
+@media (max-width: 48em) {
+    .Top_Header .save_btn{
+        margin-top: 20px;
+    }
+
+    .userheader img {
+        height: 150px;
+        width: 150px;
+    }
+    .bodywrapper{
+        padding-bottom: 30px;
+    }
+    .Top_Ranges{
+        justify-content: space-around;
+        margin: 30px 0px 0px;
+    }
+
+    .Top_Header h2 {
+        text-align: center;
+    }
+
+    .Top_Header {
+        display: block;
+        text-align: center;
+    }
+
+    .TrackItem__TrackContainer {
+        margin-bottom: 20px;
+    }
+    .userpreview{
+        display: block;
+        margin-top: 30px;
+    }
+    .username {
+        font-size: 40px;
+    }
+    .bodywrapper {
+        padding-left: 0px;
+    }
+    .left{
+        top: auto;
+        bottom: 0px;
+        right: 0px;
+        width: 100%;
+        min-height: 70px;
+        height: 70px;
+        flex-direction: row;
+    }
+    .navmenu {
+        list-style-type: none;
+        flex-direction: row;
+        align-items: flex-end;
+        -webkit-box-pack: center;
+        justify-content: center;
+    }
+    .navmenuitem {
+        -webkit-box-flex: 1;
+        flex-grow: 1;
+        flex-basis: 100%;
+        height: 100%;
+    }
+    .navgithub{
+        display: none;
+    }
+    .navlogo{
+        display: none;
+    }
+    .bodycontent{
+        padding: 50px 40px;
+    }
+}
+
+@media (max-width: 30em) {
+    .bodycontent{
+        padding: 30px 25px;
+    }
+}

@@ -4,6 +4,7 @@ import urllib.parse, hashlib, base64, random, requests, time
 from . import image_creator
 from io import BytesIO
 from decouple import Config
+import os
 
 # To adjust the visible terms
 TIMES_TRANSLATOR = {
@@ -20,9 +21,8 @@ DEFAULT_TERM = 'long_term'
 # Needs to set up app at https://developer.spotify.com/ to get CLIENT_ID and set REDIRECT_URI
 
 
-config = Config()
-CLIENT_ID = config('CLIENT_ID')
-REDIRECT_URI = config('REDIRECT_URI')
+CLIENT_ID = os.environ.get('CLIENT_ID')
+REDIRECT_URI = os.environ.get('REDIRECT_URI')
 
 def generate_code_verifier(length=128):
     possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
