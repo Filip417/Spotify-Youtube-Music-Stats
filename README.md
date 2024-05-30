@@ -18,7 +18,7 @@ A web app for visualizing personalized Spotify and YouTube Music statistics and 
 
 ## Example of 'Spotify Wrapped' Feature
 
-![Example of 'Spotify Wrapped' Feature Image](https://raw.githubusercontent.com/Filip417/Spotify-Youtube-Music-Stats/main/spotify%20wrapped%20example.png)
+<img src="https://raw.githubusercontent.com/Filip417/Spotify-Youtube-Music-Stats/main/spotify%20wrapped%20example.png" alt="Example of 'Spotify Wrapped' Feature Image" width="270" height="480"/>
 
 ## Demo Video
 
