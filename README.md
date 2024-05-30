@@ -118,9 +118,9 @@ Spotify developer api requirement
 heroku create app-name
 
 # Set Heroku environment variables
-heroku config:set CLIENT_ID=XXXXX
-heroku config:set REDIRECT_URI=https://app-name.herokuapp.com/spotify
-heroku config:set DJANGO_SECRET_KEY = 'your-django-secret-key'
+heroku config:set CLIENT_ID=XXXXX -a app-name
+heroku config:set REDIRECT_URI=https://app-name.herokuapp.com/spotify -a app-name
+heroku config:set DJANGO_SECRET_KEY=your-django-secret-key -a app-name
 
 # Push to Heroku
 git push heroku master

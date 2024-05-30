@@ -118,6 +118,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'musicprofiler.wsgi.application'
 
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "mydatabase",
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

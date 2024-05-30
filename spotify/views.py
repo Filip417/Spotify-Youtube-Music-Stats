@@ -19,8 +19,6 @@ DEFAULT_TERM = 'long_term'
 # ALL functions to fetch and engage with Spotify API
 # Official URL: https://developer.spotify.com/documentation/web-api
 # Needs to set up app at https://developer.spotify.com/ to get CLIENT_ID and set REDIRECT_URI
-
-
 CLIENT_ID = os.environ.get('CLIENT_ID')
 REDIRECT_URI = os.environ.get('REDIRECT_URI')
 
@@ -34,13 +32,13 @@ def generate_code_challenge(code_verifier):
     code_challenge = base64.urlsafe_b64encode(sha256_digest).decode('utf-8').rstrip('=')
     return code_challenge
 
-def redirect_to_auth_code_flow(client_id, request):
+def redirect_to_auth_code_flow(request):
     verifier = generate_code_verifier(128)
     challenge = generate_code_challenge(verifier)
     request.session['verifier'] = verifier
 
     params = {
-        'client_id':client_id,
+        'client_id':CLIENT_ID,
         'response_type':'code',
         'redirect_uri':REDIRECT_URI,
         'scope':'user-read-private user-read-email user-follow-read user-top-read user-library-read playlist-read-private playlist-read-collaborative user-read-recently-played playlist-modify-public playlist-modify-private',
@@ -50,13 +48,13 @@ def redirect_to_auth_code_flow(client_id, request):
     url = 'https://accounts.spotify.com/authorize?' + urllib.parse.urlencode(params)
     return url
 
-def get_access_token(client_id, code, request):
+def get_access_token(code, request):
     verifier = request.session.get('verifier')
     headers = {
         'Content-Type':'application/x-www-form-urlencoded'
     }
     data = {
-        'client_id':client_id,
+        'client_id':CLIENT_ID,
         'grant_type':'authorization_code',
         'code':code,
         'redirect_uri':REDIRECT_URI,
@@ -233,12 +231,12 @@ def profile(request):
     code = request.GET.get('code', None)
     if not code and not access_token:
         # Starts authentication workflow profided by Spotify API
-        url = redirect_to_auth_code_flow(CLIENT_ID, request)
+        url = redirect_to_auth_code_flow(request)
         return redirect(url)
     else:
         if not access_token:
             # Gets access token and saves it in Cookies
-            access_token = get_access_token(CLIENT_ID, code, request)
+            access_token = get_access_token(code, request)
             request.session['access_token'] = access_token
             request.session.modified = True
             print('Executed to get access_token')
@@ -268,7 +266,7 @@ def profile(request):
             if profile['error']:
                 request.session['access_token'] = None
                 request.session.modified = True
-                url = redirect_to_auth_code_flow(CLIENT_ID, request)
+                url = redirect_to_auth_code_flow(request)
                 return redirect(url)
         except KeyError:
             print('Access code is correct.')
