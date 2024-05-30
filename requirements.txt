@@ -5,3 +5,4 @@ ytmusicapi==1.7.3
 python-decouple==3.8
 gunicorn==22.0.0
 whitenoise==6.0.0
+django-compressor==3.0
