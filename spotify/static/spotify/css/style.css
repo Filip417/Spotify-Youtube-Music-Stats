@@ -8,7 +8,7 @@ html, body, * {
 }
 
 body {
-    font-family: "CircularStd", "Gotham SSm A", "Gotham SSm B", "Helvatica Neue";
+    font-family: "Circular Std", system, -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 16px;
     color: rgb(255, 255, 255);
     background-color: rgb(24, 24, 24);
