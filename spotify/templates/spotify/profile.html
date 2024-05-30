@@ -48,7 +48,7 @@
             <button type="submit" class="button_spotify save_btn">Download</button>
         </form>
         <div style='height:20px;'></div>
-        <div>
+        <div class='Top_Ranges'>
         <a href="{% url 'spotify_profile' %}?term=long_term" class="filter {% if term == 'long_term' %}active{% endif %}">Last Year</a>
         <a href="{% url 'spotify_profile' %}?term=medium_term" class="filter {% if term == 'medium_term' %}active{% endif %}">Last 6 Months</a>
         <a href="{% url 'spotify_profile' %}?term=short_term" class="filter {% if term == 'short_term' %}active{% endif %}">Last 4 Weeks</a>
