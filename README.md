@@ -99,12 +99,15 @@ pip install -r /path/to/requirements.txt
 ```
 
 * Required python libraries:
-- Django==5.0.6
-- Pillow==10.3.0
-- Requests==2.32.3
-- ytmusicapi==1.7.3
-- python-decouple==3.8
-- gunicorn==22.0.0
+Django==5.0.6
+Pillow==10.3.0
+Requests==2.32.3
+ytmusicapi==1.7.3
+python-decouple==3.8
+gunicorn==22.0.0
+whitenoise==6.0.0
+django-compressor==3.0
+dj-database-url==2.2.0
 
 ## Deploying to Heroku, Installation
 
@@ -116,12 +119,13 @@ heroku create app-name
 
 # Set Heroku environment variables
 heroku config:set CLIENT_ID=XXXXX
-heroku config:set REDIRECT_URI=https://app-name.herokuapp.com/callback
+heroku config:set REDIRECT_URI=https://app-name.herokuapp.com/spotify
+heroku config:set DJANGO_SECRET_KEY = 'your-django-secret-key'
 
 # Push to Heroku
 git push heroku master
 ```
-Add http://app-name.herokuapp.com/callback as a Redirect URI in the spotify application settings
+Add http://app-name.herokuapp.com/spotify as a Redirect URI in the spotify application settings
 
 Once the app is live on Heroku, hitting http://app-name.herokuapp.com/ should be the same as hitting http://127.0.0.1:8000/
 
