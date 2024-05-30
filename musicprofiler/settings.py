@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 
+
+from decouple import Config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,20 +24,32 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hd!bn0#1m!xy2o9%8__psemumm^9y=v+x(d_1b1j8=o&nina+w'
+config = Config()
+SECRET_KEY = config('DJANGO_SECRET_KEY')
+
+
+IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if not IS_HEROKU_APP:
+    DEBUG = True
 
-ALLOWED_HOSTS = []
+if IS_HEROKU_APP:
+    ALLOWED_HOSTS = ["*"]
+else:
+    ALLOWED_HOSTS = [".localhost", "127.0.0.1", "[::1]", "0.0.0.0"]
 
 
-
-STATIC_URL = '/static/'
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
+# recommended by heroku guide: STATIC_ROOT = BASE_DIR / "staticfiles"
+# default was: STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'spotify', 'static'),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 COMPRESS_ENABLED = True
 
@@ -51,12 +66,14 @@ STATICFILES_FINDERS = [
 # Application definition
 
 INSTALLED_APPS = [
+    # Use WhiteNoise's runserver implementation instead of the Django default, for dev-prod parity.
+    "whitenoise.runserver_nostatic",
     'ytmusic',
     'ytmusicapi',
     'django.contrib.humanize',
     'compressor',
     'spotify',
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -66,6 +83,11 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # Django doesn't support serving static assets in a production-ready way, so we use the
+    # excellent WhiteNoise package to do so instead. The WhiteNoise middleware must be listed
+    # after Django's `SecurityMiddleware` so that security redirects are still performed.
+    # See: https://whitenoise.readthedocs.io
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -94,16 +116,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'musicprofiler.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 # Password validation
@@ -136,11 +148,18 @@ USE_I18N = True
 
 USE_TZ = True
 
+STORAGES = {
+    # Enable WhiteNoise's GZip and Brotli compression of static assets:
+    # https://whitenoise.readthedocs.io/en/latest/django.html#add-compression-and-caching-support
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
+# Don't store the original (un-hashed filename) version of static files, to reduce slug size:
+# https://whitenoise.readthedocs.io/en/latest/django.html#WHITENOISE_KEEP_ONLY_HASHED_FILES
+WHITENOISE_KEEP_ONLY_HASHED_FILES = True
 
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

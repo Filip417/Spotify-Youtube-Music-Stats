@@ -22,7 +22,7 @@ A web app for visualizing personalized Spotify and YouTube Music statistics and 
 
 ## Demo Video
 
-![Spotify Youtube Music Stats Demo Video GIF](url)
+![Spotify Youtube Music Stats Demo Video GIF](https://raw.githubusercontent.com/Filip417/Spotify-Youtube-Music-Stats/main/Spotify%20YouTube%20Music%20Stats%20gif%20demo.gif)
 
 ## Features
 
@@ -104,6 +104,7 @@ pip install -r /path/to/requirements.txt
 - Requests==2.32.3
 - ytmusicapi==1.7.3
 - python-decouple==3.8
+- gunicorn==22.0.0
 
 ## Deploying to Heroku, Installation
 
