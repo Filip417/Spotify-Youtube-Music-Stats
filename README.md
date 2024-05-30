@@ -18,11 +18,11 @@ A web app for visualizing personalized Spotify and YouTube Music statistics and 
 
 ## Example of 'Spotify Wrapped' Feature
 
-![Example Image](https://raw.githubusercontent.com/Filip417/Spotify-Youtube-Music-Stats/main/spotify%20wrapped%20example.png)
+![Example of 'Spotify Wrapped' Feature Image](https://raw.githubusercontent.com/Filip417/Spotify-Youtube-Music-Stats/main/spotify%20wrapped%20example.png)
 
 ## Demo Video
 
-[![Watch the video](https://raw.githubusercontent.com/Filip417/Spotify-Youtube-Music-Stats/main/Spotify%20YouTube%20Music%20Stats%20demo%20thumbnail.png)](https://github.com/Filip417/Spotify-Youtube-Music-Stats/blob/main/Spotify%20YouTube%20Music%20Stats%20demo.mp4)
+![Spotify Youtube Music Stats Demo Video GIF](url)
 
 ## Features
 
@@ -115,9 +115,7 @@ heroku create app-name
 
 # Set Heroku environment variables
 heroku config:set CLIENT_ID=XXXXX
-heroku config:set CLIENT_SECRET=XXXXX
 heroku config:set REDIRECT_URI=https://app-name.herokuapp.com/callback
-heroku config:set FRONTEND_URI=https://app-name.herokuapp.com
 
 # Push to Heroku
 git push heroku master
