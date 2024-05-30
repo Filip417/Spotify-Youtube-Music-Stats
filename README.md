@@ -2,7 +2,7 @@
 
 A web app for visualizing personalized Spotify and YouTube Music statistics and generating up-to-date live "Spotify Wrapped" images.
 
-[APP](url)
+[APP](https://spotify-youtube-music-stats-6cec4f95b0e4.herokuapp.com/)
 
 ## Table of Contents
 
