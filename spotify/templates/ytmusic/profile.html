@@ -1,0 +1,126 @@
+{% extends "ytmusic/layout.html" %}
+{% block body %}
+
+
+<div>
+  <div>
+    <div class="logout-link">
+    <a href="{% url 'ytmusic_logout' %}">Log out</a>
+    </div>
+    <div class='userheader'>
+        
+        <img src="{{profile.accountPhotoUrl}}" class="rounded-circle rounded" id='userimg'>
+        <h1 class="username">{{ profile.accountName }}</h1>
+
+        <div style='height:20px;'></div>
+        <form id="summary_image_form" method="post" action="./download_image/">
+                {% csrf_token %}
+                <input id="top_artists" name="top_artists" value="{{top_artists}}" type="hidden">
+                <input id="top_tracks" name="top_tracks" value="{{top_tracks}}" type="hidden">
+                <input id="name" name="name" value="{{profile.accountName}}" type="hidden">
+                <input id="top_artist" name="top_artist" value="{{top_artist}}" type="hidden">
+                <button type="submit" class="button_spotify save_btn">Download</button>
+        </form>
+        
+    </div>
+
+
+
+    <section class='userpreview'>
+        <div class='usertracklist'>
+            <div class='usertracklistheading'>
+                <h3>Liked Artists</h3>
+                <a class='button_spotify' href="{% url 'ytmusic_top_artists' %}">See More</a>
+            </div>
+            
+            {% for artist in top_artists%}
+            <div>
+                <ul>
+                    <li>
+                        <a class="TrackItem__TrackContainer" href="{% url 'ytmusic_artist_detail' artist.browseId %}">
+                        <div>
+                        <div class="TrackItem__TrackArtwork_withindex">
+                            <div class='TrackItem_Index'>
+                                <span class='index_counter'>{{ forloop.counter }}</span>
+                            </div>
+                            <div class='TrackItem_Img'>
+                        <img src="{{ artist.thumbnails.0.url }}" alt="Album Artwork" class='rounded-circle'>
+                        </div>
+                        </div>
+                        </div>
+                        <div class="TrackItem__TrackMeta">                
+                        <span class="TrackItem__TrackLeft">
+                        <span class="TrackItem__TrackName">{{artist.artist}}</span>
+                        </span>
+                        <span class="TrackItem__TrackRight">
+                        </span>
+                        </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+
+
+        <div class='usertracklist'>
+            <div class='usertracklistheading'>
+                <h3>Recently Liked Tracks</h3>
+                <a class='button_spotify' href="{% url 'ytmusic_top_tracks' %}">See More</a>
+            </div>
+            
+            
+            <div>
+                <ul>
+                    {% for track in top_tracks %}
+                    <li>
+                        <a class="TrackItem__TrackContainer" href="{% url 'ytmusic_track_detail' track.videoId %}">
+                            <div>
+                                <div class="TrackItem__TrackArtwork_withindex">
+                                    <div class='TrackItem_Index'>
+                                        <span class='index_counter'>{{ forloop.counter }}</span>
+                                    </div>
+                                    <div class='TrackItem_Img'>
+                                        <img src="{{ track.thumbnails.0.url }}" alt="Album Artwork">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="TrackItem__TrackMeta">
+                                <span class="TrackItem__TrackLeft">
+                                    <span class="TrackItem__TrackName">{{ track.title }}</span>
+                                    <div class="TrackItem__TrackAlbum">
+                                        {% for artist in track.artists %}
+                                            <span class='direct_link' onclick="event.preventDefault(); event.stopPropagation(); window.location='{% url 'ytmusic_artist_detail' artist.id %}'">{{ artist.name }}</span>&nbsp;
+                                        {% endfor %}
+                                        {% if track.album.name %}
+                                        &nbsp;·&nbsp;&nbsp;
+                                        <span class='direct_link' onclick="event.preventDefault(); event.stopPropagation(); window.location='{% url 'ytmusic_album_detail' track.album.id %}'">
+                                            {{ track.album.name }}</span>
+                                        {% endif %}
+                                    </div>
+                                </span>
+                                <span class="TrackItem__TrackRight">
+                                    <span class="TrackItem__TrackDuration">{{ track.duration}}</span>
+                                </span>
+                            </div>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+    </section>
+
+
+
+
+
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}

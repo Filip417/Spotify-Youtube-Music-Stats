@@ -1,0 +1,39 @@
+{% extends "ytmusic/layout.html" %}
+
+{% block body %}
+
+
+<div class='Top_Header'>
+    <h2>Top Artists</h2>
+</div>
+
+
+<div class='TopArtists__ArtistsContainer'>
+        <ul>
+            {% for artist in top_artists%}
+            <li>
+                    <a class="TrackItem__TrackContainer" href="{% url 'ytmusic_artist_detail' artist.browseId %}">
+                    <div>
+                    <div class="TrackItem__TrackArtwork">
+                    <img src="{{ artist.thumbnails.0.url }}" alt="Album Artwork">
+                    </div>
+                    </div>
+                    <div class="TrackItem__TrackMeta">
+                    <span class="TrackItem__TrackLeft">
+                    <span class="TrackItem__TrackName">{{artist.artist}}</span>
+                    <div class="TrackItem__TrackAlbum"></div>
+                    </span>
+                    <span class="TrackItem__TrackRight">
+                    <span class="TrackItem__TrackDuration"></span>
+                    </span>
+                    </div>
+                    </a>
+            </li>
+            {% endfor %}
+        </ul>
+</div>
+
+
+
+
+{% endblock %}

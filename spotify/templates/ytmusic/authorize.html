@@ -1,0 +1,40 @@
+{% extends "ytmusic/layout.html" %}
+{% block body %}
+{% load static %}
+<div class='authorize_div'>
+    <h1 class="username">Welcome to your YouTube Music Profile</h1>
+    <div style='height:20px;'></div>
+    <p>You can get more insight into your listening taste 'spotify wrapped' alike</p>
+    <div style='height:20px;'></div>
+    <h2>Paste Your Cookie</h2>
+    <form id="cookieForm" method='post'>
+        {% csrf_token %} 
+        <label for="cookieInput"></label>
+        <div style='height:10px;'></div>
+        <input type="text" id="cookieInput" name="cookie" required>
+        <div style='height:10px;'></div>
+        <button type="submit" class='button_spotify save_btn'>Submit</button>
+    </form>
+    <div style='height:30px;'></div>
+    <hr>
+    <div style='height:20px;'></div>
+    <h2>Instructions:</h2>
+    <div style='height:10px;'></div>
+    <h3>1. Open <a href='https://music.youtube.com/' id='yt_link'>Youtube Music</a> and log into your account.</h3>
+    <img src="{% static 'ytmusic/images/step1.png' %}" alt="Instruction image step 1" class='instruction_img'>
+    <h3>2. Right click on screen and click on 'Inspect'.</h3>
+    <img src="{% static 'ytmusic/images/step2.png' %}" alt="Instruction image step 1" class='instruction_img'>
+    <h3>3. Click on 'Network' tab.</h3>
+    <img src="{% static 'ytmusic/images/step3.png' %}" alt="Instruction image step 1" class='instruction_img'>
+    <h3>4. Type 'browse' into search field.</h3>
+    <img src="{% static 'ytmusic/images/step4.png' %}" alt="Instruction image step 1" class='instruction_img'>
+    <h3>5. Refresh the website and wait 5 seconds.</h3>
+    <img src="{% static 'ytmusic/images/step5.png' %}" alt="Instruction image step 1" class='instruction_img'>
+    <h3>6. Click on the item starting with 'browse?'.</h3>
+    <img src="{% static 'ytmusic/images/step6.png' %}" alt="Instruction image step 1" class='instruction_img'>
+    <h3>7. Find 'Cookie' in 'Request Headers' in 'Headers' tab and copy all of it.</h3>
+    <img src="{% static 'ytmusic/images/step7.png' %}" alt="Instruction image step 1" class='instruction_img'>
+    <h3>8. Paste Cookie in the field at the top.</h3>
+    <div style='height:20px;'></div>
+</div>
+{% endblock %}

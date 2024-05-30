@@ -1,0 +1,44 @@
+{% extends "ytmusic/layout.html" %}
+{% block body %}
+{% load custom_filters %}
+
+
+
+
+<div class='userheader'>
+    <img src="{{ track.microformat.microformatDataRenderer.thumbnail.thumbnails.0.url }}" width="300" height="300">
+    <a href="{{track.microformat.microformatDataRenderer.urlCanonical}}" target="_blank" rel="noopener noreferrer">
+    <h1 class="username">{{track.videoDetails.title}}</h1>
+    </a>
+    <p class='playlist_desc'>{{track.microformat.microformatDataRenderer.description}}</p>
+    <div class='userstats'>
+        <div class='userstat'>
+            <div class='usernum'>
+                {{track.microformat.microformatDataRenderer.viewCount|comma_separated}}
+            </div>
+            <p class='userlabel'>
+                Views
+            </p>
+        </div>
+        <div class='userstat'>
+            <div class='usernum'>
+                {{track.microformat.microformatDataRenderer.publishDate|format_date}}
+            </div>
+            <p class='userlabel'>
+                Publish Date
+            </p>
+        </div>
+        <div class='userstat'>
+            <div class='usernum'>
+                {{ track.microformat.microformatDataRenderer.videoDetails.durationSeconds|seconds_to_time}}
+            </div>
+            <p class='userlabel'>
+                Duration
+            </p>
+        </div>
+    </div>
+        <div style='height:20px;'></div>
+        <canvas id='trackChart'></canvas>
+</div>
+
+{% endblock %}

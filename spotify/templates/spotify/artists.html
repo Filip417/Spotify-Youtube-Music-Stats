@@ -1,0 +1,47 @@
+{% extends "spotify/layout.html" %}
+{% block body %}
+<div class='Top_Header'>
+    <h2>Top Artists</h2>
+    <div class='Top_Ranges'>
+        <a href="{% url 'spotify_top_artists' %}?term=long_term" class="filter {% if term == 'long_term' %}active{% endif %}">Last Year</a>
+        <a href="{% url 'spotify_top_artists' %}?term=medium_term" class="filter {% if term == 'medium_term' %}active{% endif %}">Last 6 Months</a>
+        <a href="{% url 'spotify_top_artists' %}?term=short_term" class="filter {% if term == 'short_term' %}active{% endif %}">Last 4 Weeks</a>
+    </div>
+</div>
+<div class='TopArtists__ArtistsContainer'>
+            {% for artist in top_artists.items%}
+            <div>
+                <ul>
+                    <li>
+                        <a class="TrackItem__TrackContainer" href="{% url 'spotify_artist_detail' artist.id %}">
+                        <div>
+                        <div class="TrackItem__TrackArtwork_withindex">
+                            <div class='TrackItem_Index'>
+                                <span class='index_counter'>{{ forloop.counter }}</span>
+                            </div>
+                            <div class='TrackItem_Img'>
+                        <img src="{{ artist.images.2.url }}" alt="Album Artwork" class='rounded-circle'>
+                        </div>
+                        </div>
+                        </div>
+                        <div class="TrackItem__TrackMeta">
+                        <span class="TrackItem__TrackLeft">
+                        <span class="TrackItem__TrackName">{{artist.name}}</span>
+                        <div class="TrackItem__TrackAlbum">
+                            {% for genre in artist.genres %}
+                        <span>{{ genre }}&nbsp;</span>
+                            {% endfor %}
+                        &nbsp;·&nbsp;&nbsp;Popularity: {{artist.popularity}}%</div>
+                        </span>
+                        <span class="TrackItem__TrackRight">
+                            {% load humanize %}
+                        <span class="TrackItem__TrackDuration">Followers: {{artist.followers.total|intcomma }}</span>
+                        </span>
+                        </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        {% endfor %}
+</div>
+{% endblock %}

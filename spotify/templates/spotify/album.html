@@ -1,0 +1,63 @@
+{% extends "spotify/layout.html" %}
+{% block body %}
+<div class='userheader'>
+    <img src="{{ album.images.0.url }}" width="300" height="300">
+    <a href="{{ album.external_urls.spotify }}" target="_blank" rel="noopener noreferrer">
+    <h1 class="username">{{album.name}}</h1>
+    </a>
+    <div style='height:20px;'></div>
+    <p class='playlist_desc'>{% for artist in album.artists %} <a href="{% url 'spotify_artist_detail' artist.id %}" class='direct_link'>{{artist.name}}</a>{% endfor %}
+    <div class='userstats'>
+        <div class='userstat'>
+            <div class='usernum'>
+                {{album.popularity}}%
+            </div>
+            <p class='userlabel'>
+                Popularity
+            </p>
+        </div>
+        <div class='userstat'>
+            <div class='usernum'>
+                {% load custom_filters %}{{album.release_date|format_to_date}}
+            </div>
+            <p class='userlabel'>
+                Release date
+            </p>
+        </div>
+        <div class='userstat'>
+            <div class='usernum'>
+                {{album.total_tracks}}
+            </div>
+            <p class='userlabel'>
+                Tracks
+            </p>
+        </div>
+    </div>
+</div>
+<div>
+    <ul>
+        {% for track in album.tracks.items %}
+        <li>
+                <a class="TrackItem__TrackContainer" href="{% url 'spotify_track_detail' track.id %}">
+                <div>
+
+                </div>
+                <div class="TrackItem__TrackMeta">
+                <span class="TrackItem__TrackLeft">
+                <span class="TrackItem__TrackName">{{track.name}}</span>
+                <div class="TrackItem__TrackAlbum">
+                    {% for artist in track.artists %}
+                    <span class='direct_link' onclick="event.preventDefault(); event.stopPropagation(); window.location='{% url 'spotify_artist_detail' artist.id %}'">{{ artist.name }}</span>&nbsp;
+                    {% endfor %}</div>
+                </span>
+                <span class="TrackItem__TrackRight">
+                    {% load custom_filters %}
+                <span class="TrackItem__TrackDuration">{{ track.duration_ms|milliseconds_to_minutes_seconds}}</span>
+                </span>
+                </div>
+                </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

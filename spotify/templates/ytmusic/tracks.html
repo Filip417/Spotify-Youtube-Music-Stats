@@ -1,0 +1,61 @@
+{% extends "ytmusic/layout.html" %}
+
+{% block body %}
+
+
+
+<div class='Top_Header'>
+    <h2>{% if term == 'liked' or term == 'recent' %} {{term|capfirst}} {%endif%} Tracks</h2>    
+    {% if term == 'liked' or term == 'recent'%}
+    {% if not playlist %}
+    <form id="playlistform" method="post" action="./tracks">
+        {% csrf_token %}
+        <input id="term" name="term" value="{{term}}" type="hidden">
+        <button type="submit" class="button_spotify save_btn">Save as playlist</button>
+    </form>
+    {% endif %}
+    {% endif %}
+    {% if playlist %}
+    <a class="button_spotify" href="{% url 'ytmusic_playlists' %}">See your playlist</a>
+    {% endif %}
+    <div class='Top_Ranges'>
+        <a href="{% url 'ytmusic_top_tracks' %}?term=liked" class="filter {% if term == 'liked' %}active{% endif %}">Liked</a>
+        <a href="{% url 'ytmusic_top_tracks' %}?term=recent" class="filter {% if term == 'recent' %}active{% endif %}">Recent</a>
+    </div>
+</div>
+
+
+{% if term == 'liked' or term == 'recent' %}
+<div>
+    <ul>
+        {% for track in top_tracks %}
+        <li>
+                <a class="TrackItem__TrackContainer" href="{% url 'ytmusic_track_detail' track.videoId %}">
+                <div>
+                <div class="TrackItem__TrackArtwork">
+                <img src="{{ track.thumbnails.0.url }}" alt="Album Artwork">
+                </div>
+                </div>
+                <div class="TrackItem__TrackMeta">
+                <span class="TrackItem__TrackLeft">
+                <span class="TrackItem__TrackName">{{track.title}}</span>
+                <div class="TrackItem__TrackAlbum">
+                    <span class='direct_link' onclick="event.preventDefault(); event.stopPropagation(); window.location='{% url 'ytmusic_artist_detail' track.artists.0.id %}'">{{ track.artists.0.name }}</span>&nbsp;
+                    {% if track.album.name %}
+                 &nbsp;·&nbsp;&nbsp;<span class='direct_link' onclick="event.preventDefault(); event.stopPropagation(); window.location='{% url 'ytmusic_album_detail' track.album.id %}'">
+                    {{ track.album.name }}</span>
+                    {% endif %}
+            </div>
+                </span>
+                <span class="TrackItem__TrackRight">
+                <span class="TrackItem__TrackDuration">{{ track.duration}}</span>
+                </span>
+                </div>
+                </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% endblock %}

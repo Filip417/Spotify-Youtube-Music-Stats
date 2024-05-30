@@ -1,0 +1,40 @@
+{% extends "spotify/layout.html" %}
+{% block body %}
+<div class='Top_Header'>
+    <h2>Playlists</h2>
+</div>
+<div>
+    <ul>
+        {% for playlist in playlists.items %}
+        <li>
+                <a class="TrackItem__TrackContainer" href="{% url 'spotify_playlist_detail' playlist.id %}">
+                <div>
+                <div class="TrackItem__TrackArtwork">
+                {% if playlist.images.2.url %}
+                <img src="{{ playlist.images.2.url }}" alt="Album Artwork">
+                {% elif playlist.images.1.url %}
+                <img src="{{ playlist.images.1.url }}" alt="Album Artwork">
+                {% elif playlist.images.0.url %}
+                <img src="{{ playlist.images.0.url }}" alt="Album Artwork">
+                {% endif %}
+                </div>
+                </div>
+                <div class="TrackItem__TrackMeta">
+                <span class="TrackItem__TrackLeft">
+                <span class="TrackItem__TrackName">{{playlist.name}}</span>
+                <div class="TrackItem__TrackAlbum">
+                <span>{{playlist.description}}</span></div>
+                </span>
+                <span class="TrackItem__TrackRight">
+                <span class="TrackItem__TrackDuration">Tracks: {{playlist.tracks.total}}</span>
+                </span>
+                </div>
+                </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+
+{% endblock %}

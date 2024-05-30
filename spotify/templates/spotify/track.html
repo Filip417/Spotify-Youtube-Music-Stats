@@ -1,0 +1,94 @@
+{% extends "spotify/layout.html" %}
+{% load custom_filters %}
+{% block body %}
+<div class='userheader'>
+    <img src="{{ track.album.images.0.url }}" width="300" height="300">
+    <a href="{{track.external_urls.spotify}}" target="_blank" rel="noopener noreferrer">
+    <h1 class="username">{{track.name}}</h1>
+    </a>
+    <p class='playlist_desc'>{% for artist in track.artists %} <a href="{% url 'spotify_artist_detail' artist.id %}" class='direct_link'>{{artist.name}}</a>{% endfor %}
+        &nbsp;·&nbsp;&nbsp;<a href="{% url 'spotify_album_detail' track.album.id %}" class='direct_link'>{{track.album.name}}</a>
+        &nbsp;·&nbsp;&nbsp;{% load custom_filters %}
+        {{ track.duration_ms|milliseconds_to_minutes_seconds}}</p>
+    <div class='userstats'>
+        <div class='userstat'>
+            <div class='usernum'>
+                {{track_analysis.track.key|key_to_pitch }}
+            </div>
+            <p class='userlabel'>
+                Key
+            </p>
+        </div>
+        <div class='userstat'>
+            <div class='usernum'>
+                {{track_analysis.track.mode|mode_to_modality}}
+            </div>
+            <p class='userlabel'>
+                Modality
+            </p>
+        </div>
+        <a href="{{playlist.owner.external_urls.spotify}}">
+        <div class='userstat'>
+            <div class='usernum'>
+                {{ track_analysis.track.tempo |floatformat:0 }}
+            </div>
+            <p class='userlabel'>
+                Tempo
+            </p>
+        </div>
+        </a>
+    </div>
+        <div style='height:20px;'></div>
+        <canvas id='trackChart'></canvas>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js" ></script>
+<script>
+  const ctx = document.getElementById('trackChart').getContext('2d');
+  
+  new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ['Acousticness', 'Danceability', 'Energy', 'Instrumentalness', 'Liveness', 'Speechiness', 'Valence'],
+          datasets: [{
+              label: 'Track Features',
+              data: [{{track_features.acousticness}}, {{track_features.danceability}}, {{track_features.energy}}, {{track_features.instrumentalness}}, {{track_features.liveness}}, {{track_features.speechiness}}, {{track_features.valence}}],
+              backgroundColor: 'rgba(29, 185, 84, 0.7)',
+              borderColor: 'rgba(29, 185, 84, 1)',
+              borderWidth: 1,
+          }]
+      },
+      options: {
+          scales: {
+              x: {
+                  ticks: {
+                      color: '#ffffff',
+                  },
+                  grid: {
+                      display: false,
+                  }
+              },
+              y: {
+                  ticks: {
+                      beginAtZero: true,
+                      color: '#ffffff',
+                  },
+                  grid: {
+                      color: 'rgba(255, 255, 255, 0.2)',
+                  }
+              }
+          },
+          plugins: {
+              legend: {
+                  display: false,
+              },
+              tooltip: {
+                  enabled: true,
+                  backgroundColor: 'rgba(0,0,0,0.7)',
+                  titleColor: '#ffffff',
+                  bodyColor: '#ffffff'
+              }
+          }
+      }
+  });
+</script>
+{% endblock %}

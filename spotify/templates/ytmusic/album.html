@@ -1,0 +1,69 @@
+{% extends "ytmusic/layout.html" %}
+
+{% block body %}
+
+
+
+
+<div class='userheader'>
+    <img src="{{ album.thumbnails.3.url }}" width="300" height="300">
+    <h1 class="username">{{album.title}}</h1>
+    <div style='height:20px;'></div>
+    <p class='playlist_desc'>{% for artist in album.artists %} <a href="{% url 'ytmusic_artist_detail' artist.id %}" class='direct_link'>{{artist.name}}</a>{% endfor %}
+    <div class='userstats'>
+        <div class='userstat'>
+            <div class='usernum'>
+                {% load custom_filters %}
+                {{album.duration_seconds|seconds_to_time}}
+            </div>
+            <p class='userlabel'>
+                Duration
+            </p>
+        </div>
+        <div class='userstat'>
+            <div class='usernum'>
+                {{album.year }}
+            </div>
+            <p class='userlabel'>
+                Year
+            </p>
+        </div>
+        <div class='userstat'>
+            <div class='usernum'>
+                {{album.trackCount}}
+            </div>
+            <p class='userlabel'>
+                Tracks
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+<div>
+    <ul>
+        {% for track in album.tracks %}
+        <li>
+                <a class="TrackItem__TrackContainer" href="{% url 'ytmusic_track_detail' track.videoId %}">
+                <div>
+
+                </div>
+                <div class="TrackItem__TrackMeta">
+                <span class="TrackItem__TrackLeft">
+                <span class="TrackItem__TrackName">{{track.title}}</span>
+                <div class="TrackItem__TrackAlbum">
+                </div>
+                </span>
+                <span class="TrackItem__TrackRight">
+                <span class="TrackItem__TrackDuration">{{ track.duration}}</span>
+                </span>
+                </div>
+                </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "spotify/layout.html" %}
+{% block body %}
+<div class='Top_Header'>
+    <h2>{% if term == 'saved' or term == 'recent' %} {{term|capfirst}} {%else %}Top Tracks{%endif%}</h2>    
+    {% if term != 'saved' and term != 'recent' and not playlist %}
+    <form id="playlistform" method="post" action="./tracks">
+        {% csrf_token %}
+        <input id="term" name="term" value="{{term}}" type="hidden">
+        <button type="submit" class="button_spotify save_btn">Save as playlist</button>
+    </form>
+    {% endif %}
+    {% if playlist %}
+    <a class="button_spotify" href="{% url 'spotify_playlists' %}">See your playlist</a>
+    {% endif %}
+    <div class='Top_Ranges'>
+        <a href="{% url 'spotify_top_tracks' %}?term=long_term" class="filter {% if term == 'long_term' %}active{% endif %}">Last Year</a>
+        <a href="{% url 'spotify_top_tracks' %}?term=medium_term" class="filter {% if term == 'medium_term' %}active{% endif %}">Last 6 Months</a>
+        <a href="{% url 'spotify_top_tracks' %}?term=short_term" class="filter {% if term == 'short_term' %}active{% endif %}">Last 4 Weeks</a>
+        <a href="{% url 'spotify_top_tracks' %}?term=saved" class="filter {% if term == 'saved' %}active{% endif %}">Saved</a>
+        <a href="{% url 'spotify_top_tracks' %}?term=recent" class="filter {% if term == 'recent' %}active{% endif %}">Recent</a>
+    </div>
+</div>
+{% if term == 'saved' or term == 'recent' %}
+<div>
+    <ul>
+        {% for track in top_tracks.items%}
+        <li>
+                <a class="TrackItem__TrackContainer" href="{% url 'spotify_track_detail' track.track.id %}">
+                <div>
+                <div class="TrackItem__TrackArtwork">
+                <img src="{{ track.track.album.images.2.url }}" alt="Album Artwork">
+                </div>
+                </div>
+                <div class="TrackItem__TrackMeta">
+                <span class="TrackItem__TrackLeft">
+                <span class="TrackItem__TrackName">{{track.track.name}}</span>
+                <div class="TrackItem__TrackAlbum">
+                    {% for artist in track.track.artists %}
+                    <span class='direct_link' onclick="event.preventDefault(); event.stopPropagation(); window.location='{% url 'spotify_artist_detail' artist.id %}'">{{ artist.name }}</span>&nbsp;
+                    {% endfor %}
+                &nbsp;·&nbsp;&nbsp;<span class='direct_link' onclick="event.preventDefault(); event.stopPropagation(); window.location='{% url 'spotify_album_detail' track.track.album.id %}'">{{ track.track.album.name }}</span></div>
+                </span>
+                <span class="TrackItem__TrackRight">
+                    {% load custom_filters %}
+                <span class="TrackItem__TrackDuration">{{ track.track.duration_ms|milliseconds_to_minutes_seconds}}</span>
+                </span>
+                </div>
+                </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% if term != 'saved' and term != 'recent' %}
+<div>
+    <ul>
+        {% for track in top_tracks.items%}
+        <li>
+                <a class="TrackItem__TrackContainer" href="{% url 'spotify_track_detail' track.id %}">
+                    <div>
+
+                            
+                        <div class="TrackItem__TrackArtwork_withindex">
+                            <div class='TrackItem_Index'>
+                                <span class='index_counter'>{{ forloop.counter }}</span>
+                            </div>
+                            <div class='TrackItem_Img'>
+                        <img src="{{ track.album.images.2.url }}" alt="Album Artwork">
+                            </div>
+                        </div>
+                        </div>
+                <div class="TrackItem__TrackMeta">
+                <span class="TrackItem__TrackLeft">
+                <span class="TrackItem__TrackName">{{track.name}}</span>
+                <div class="TrackItem__TrackAlbum">
+                    {% for artist in track.artists %}
+                    <span class='direct_link' onclick="event.preventDefault(); event.stopPropagation(); window.location='{% url 'spotify_artist_detail' artist.id %}'">{{ artist.name }}</span>&nbsp;
+                    {% endfor %}
+                &nbsp;·&nbsp;&nbsp;<span class='direct_link' onclick="event.preventDefault(); event.stopPropagation(); window.location='{% url 'spotify_album_detail' track.album.id %}'">{{ track.album.name }}</span></div>
+                </span>
+                <span class="TrackItem__TrackRight">
+                    {% load custom_filters %}
+                <span class="TrackItem__TrackDuration">{{ track.duration_ms|milliseconds_to_minutes_seconds}}</span>
+                </span>
+                </div>
+                </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endblock %}

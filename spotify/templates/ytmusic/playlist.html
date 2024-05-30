@@ -1,0 +1,89 @@
+{% extends "ytmusic/layout.html" %}
+
+{% block body %}
+
+
+<div class='userheader'>
+    {% if playlist.thumbnails.2.url %}
+    <img src="{{ playlist.thumbnails.2.url }}" width="300" height="300">
+    {% elif playlist.thumbnails.1.url %}
+    <img src="{{ playlist.thumbnails.1.url }}" width="300" height="300">
+    {% else %}
+    <img src="{{ playlist.thumbnails.0.url }}" width="300" height="300">
+    {% endif %}
+    <h1 class="username">{{playlist.title}}</h1>
+    <p class='playlist_desc'>{{playlist.description}}</p>
+    <div class='userstats'>
+        <div class='userstat'>
+            <div class='usernum'>
+                {% load custom_filters %}
+                {{playlist.duration_seconds|seconds_to_time}}
+            </div>
+            <p class='userlabel'>
+                Duration
+            </p>
+        </div>
+        <div class='userstat'>
+            <div class='usernum'>
+                {{playlist.trackCount}}
+            </div>
+            <p class='userlabel'>
+                Tracks
+            </p>
+        </div>
+        
+        <div class='userstat'>
+            <div class='usernum'>
+                {% if playlist.author.name %}
+                {{playlist.author.name }}
+                {% else %}
+                NA
+                {% endif %}
+            </div>
+            <p class='userlabel'>
+                Author
+            </p>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div>
+    <ul>
+        {% for track in playlist.tracks %}
+        <li>
+                <a class="TrackItem__TrackContainer" href="{% url 'ytmusic_track_detail' track.videoId %}">
+                <div>
+                <div class="TrackItem__TrackArtwork">
+                <img src="{{ track.thumbnails.0.url }}" alt="Album Artwork">
+                </div>
+                </div>
+                <div class="TrackItem__TrackMeta">
+                <span class="TrackItem__TrackLeft">
+                <span class="TrackItem__TrackName">{{track.title}}</span>
+                <div class="TrackItem__TrackAlbum">
+                    {% for artist in track.artists %}
+                    <span class='direct_link' onclick="event.preventDefault(); event.stopPropagation(); window.location='{% url 'ytmusic_artist_detail' artist.id %}'">{{ artist.name }}</span>&nbsp;
+                    {% endfor %}
+                    {% if track.album %}
+                &nbsp;·&nbsp;&nbsp;
+                <span class='direct_link' onclick="event.preventDefault(); event.stopPropagation(); window.location='{% url 'ytmusic_album_detail' track.album.id %}'">
+                    {{ track.album.name }}
+                </span>
+                {% endif %}
+            </div>
+                </span>
+                <span class="TrackItem__TrackRight">
+                <span class="TrackItem__TrackDuration">{{ track.duration }}</span>
+                </span>
+                </div>
+                </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock %}
