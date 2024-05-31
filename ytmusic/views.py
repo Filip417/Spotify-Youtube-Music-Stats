@@ -56,7 +56,7 @@ def authorize(request):
         request.session['cookie'] = cookie_value
         request.session['authenticated'] = True
         request.session.modified = True
-        return redirect('profile')
+        return redirect('ytmusic_profile')
     return render(request, 'ytmusic/authorize.html')
 
 
