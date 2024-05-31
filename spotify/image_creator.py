@@ -117,17 +117,17 @@ def get_image(name, top_tracks, top_artists, term_readable):
     
     draw_image((130,130), top_artist_img_url, (640,640))
 
-    draw_text((100,870), 'Top Artists', (155, 155, 155), 'SemiBold', 32)
-    draw_text((500,870), 'Top Songs', (155, 155, 155), 'SemiBold', 32)
+    draw_text((100,850), 'Top Artists', (155, 155, 155), 'SemiBold', 32)
+    draw_text((500,850), 'Top Songs', (155, 155, 155), 'SemiBold', 32)
 
     draw_text((100,920), top_5_artists, (255, 255, 255), 'Bold', 32)
     draw_text((500,920), top_5_tracks, (255, 255, 255), 'Bold', 32)
 
-    draw_text((100,1200), "Artists' popularity", (155, 155, 155), 'SemiBold', 32)
-    draw_text((500,1200), 'Top Genre', (155, 155, 155), 'SemiBold', 32)
+    draw_text((100,1330), "Artists' popularity", (155, 155, 155), 'SemiBold', 32)
+    draw_text((500,1330), 'Top Genre', (155, 155, 155), 'SemiBold', 32)
 
-    draw_text((100,1250), f'{average_popularity}%', (255, 255, 255), 'Bold', 40)
-    draw_text((500,1250), most_common_genre, (255, 255, 255), 'Bold', 40)
+    draw_text((100,1380), f'{average_popularity}%', (255, 255, 255), 'Bold', 40)
+    draw_text((500,1380), most_common_genre, (255, 255, 255), 'Bold', 40)
 
     draw_text((180,1520), f"@{name}", (29, 185, 84), 'SemiBold', 20)
     draw_image((100,1485),'https://storage.googleapis.com/pr-newsroom-wp/1/2023/05/Spotify_Primary_Logo_RGB_Green.png', (64,64))
